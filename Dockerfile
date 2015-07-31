@@ -39,6 +39,13 @@ RUN alternatives --install /usr/bin/java jar /usr/java/latest/bin/java 200000
 RUN alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000
 RUN alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 200000
 
+# Install maven
+ENV MAVEN_VERSION 3.2.1
+RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
+  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
+  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+ENV MAVEN_HOME /usr/share/maven
+
 # Install findbugs
 ENV FINDBUGS_VERSION 2.0.3
 RUN curl -fsSL http://downloads.sourceforge.net/project/findbugs/findbugs/$FINDBUGS_VERSION/findbugs-$FINDBUGS_VERSION.tar.gz | tar xzf - -C /home/$BUILD_USER
@@ -77,3 +84,18 @@ RUN sed -ri 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/g' /etc/ssh/ssh
 RUN mkdir -p /home/$BUILD_USER/.ssh
 RUN chown -R $BUILD_USER:$BUILD_USER_GROUP /home/$BUILD_USER
 RUN chmod 700 /home/$BUILD_USER/.ssh
+
+EXPOSE 22
+
+# This entry will either run this container as a jenkins slave or just start SSHD
+# If we're using the slave-on-demand, we start with SSH (the default)
+
+# Default Jenkins Slave Name
+ENV SLAVE_ID FEDORA_NODE
+ENV SLAVE_OS Linux
+
+ADD start.sh /
+RUN chmod 777 /start.sh
+
+CMD ["sh", "/start.sh"]
+
