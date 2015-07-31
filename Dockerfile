@@ -39,6 +39,9 @@ RUN alternatives --install /usr/bin/java jar /usr/java/latest/bin/java 200000
 RUN alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000
 RUN alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 200000
 
+# Update npm
+RUN npm install npm -g
+
 # Install maven
 ENV MAVEN_VERSION 3.2.1
 RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share \
