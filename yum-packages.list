@@ -31,4 +31,5 @@ cloc
 subversion 
 cmake  
 perl-autodie 
-perl-File* 
+perl-File*
+cmake 
