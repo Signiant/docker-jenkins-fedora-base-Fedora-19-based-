@@ -40,7 +40,7 @@ RUN alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 20
 RUN alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 200000
 
 # Update npm
-RUN npm install npm -g
+RUN npm install -g npm@latest-2
 
 # Install maven
 ENV MAVEN_VERSION 3.2.1
@@ -101,4 +101,3 @@ ADD start.sh /
 RUN chmod 777 /start.sh
 
 CMD ["sh", "/start.sh"]
-
