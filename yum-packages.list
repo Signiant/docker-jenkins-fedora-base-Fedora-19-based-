@@ -1,6 +1,7 @@
 passwd
 openssh
 openssh-server
+openssh-clients
 sudo
 python
 python-devel

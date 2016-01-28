@@ -23,6 +23,7 @@ RUN usermod -a -G $BUILD_DOCKER_GROUP $BUILD_USER
 # Install a base set of packages from the default repo
 COPY yum-packages.list /tmp/yum.packages.list
 RUN chmod +r /tmp/yum.packages.list
+RUN yum update -y systemd
 RUN yum install -y `cat /tmp/yum.packages.list`
 
 # Install Java
@@ -33,6 +34,7 @@ ENV JAVA_HOME /usr/java/latest
 # Downloading Oracle Java
 RUN wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/jdk-$JAVA_VERSION-linux-x64.rpm" -O /tmp/jdk-7-linux-x64.rpm
 RUN yum -y install /tmp/jdk-7-linux-x64.rpm
+
 RUN rm -f /tmp/jdk-7-linux-x64.rpm
 
 RUN alternatives --install /usr/bin/java jar /usr/java/latest/bin/java 200000
