@@ -23,7 +23,7 @@ RUN usermod -a -G $BUILD_DOCKER_GROUP $BUILD_USER
 # Install a base set of packages from the default repo
 COPY yum-packages.list /tmp/yum.packages.list
 RUN chmod +r /tmp/yum.packages.list
-RUN yum update -y systemd
+RUN yum update -y fakesystemd
 RUN yum install -y `cat /tmp/yum.packages.list`
 
 # Install Java
