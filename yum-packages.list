@@ -1,7 +1,6 @@
 passwd
 openssh
 openssh-server
-openssh-clients
 sudo
 python
 python-devel
@@ -28,8 +27,8 @@ libxml2-devel
 npm
 wget
 cloc
-subversion 
-cmake  
-perl-autodie 
+subversion
+cmake
+perl-autodie
 perl-File*
-cmake 
+cmake
