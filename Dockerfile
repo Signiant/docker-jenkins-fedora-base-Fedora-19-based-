@@ -81,6 +81,9 @@ RUN echo "Defaults:$BUILD_USER !requiretty" >> /etc/sudoers
 # Add user to sudoers with NOPASSWD
 RUN echo "$BUILD_USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+#Install umpire
+RUN pip install umpire
+
 # Install and configure SSHD (needed by the Jenkins slave-on-demand plugin)
 RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
 RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
