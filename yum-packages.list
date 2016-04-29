@@ -27,7 +27,6 @@ libxml2-devel
 npm
 wget
 cloc
-subversion
 cmake
 perl-autodie
 perl-File*
