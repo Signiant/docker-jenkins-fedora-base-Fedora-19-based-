@@ -26,6 +26,9 @@ RUN chmod +r /tmp/yum.packages.list
 RUN yum update -y fakesystemd
 RUN yum install -y `cat /tmp/yum.packages.list`
 
+# Install subversion, this needs to be done this way as it tries to install a broken package
+RUN yum install -y --nodeps subversion
+
 # Install Java
 ENV JAVA_VERSION 7u79
 ENV BUILD_VERSION b15

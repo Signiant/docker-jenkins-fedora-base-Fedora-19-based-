@@ -5,7 +5,6 @@ openssh-clients
 sudo
 python
 python-devel
-subversion
 dos2unix
 git
 tar
