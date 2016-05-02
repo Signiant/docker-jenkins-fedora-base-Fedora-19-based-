@@ -23,7 +23,6 @@ RUN usermod -a -G $BUILD_DOCKER_GROUP $BUILD_USER
 # Install a base set of packages from the default repo
 COPY yum-packages.list /tmp/yum.packages.list
 RUN chmod +r /tmp/yum.packages.list
-RUN yum update -y fakesystemd
 RUN yum install -y `cat /tmp/yum.packages.list`
 
 # Install subversion, this needs to be done this way as it tries to install a broken package
@@ -70,6 +69,14 @@ ENV ANT_HOME /usr/local/apache-ant-${ANT_VERSION}
 # Install our required ant libs
 COPY ant-libs/*.jar ${ANT_HOME}/lib/
 RUN chmod 644 ${ANT_HOME}/lib/*.jar
+
+# Install pip
+RUN cd /tmp && \
+    wget https://bootstrap.pypa.io/get-pip.py && \
+    python2.7 ./get-pip.py
+
+# Install umpire
+RUN pip2.7 install umpire
 
 # Create the folder we use for Jenkins workspaces across all nodes
 RUN mkdir -p /var/lib/jenkins
