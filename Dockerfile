@@ -8,6 +8,7 @@ ENV BUILD_USER_ID 10012
 ENV BUILD_USER_GROUP users
 ENV BUILD_DOCKER_GROUP docker
 ENV BUILD_DOCKER_GROUP_ID 1001
+ENV UMPIRE_VERSION 0.4.4
 
 # Create the docker group
 RUN groupadd -g $BUILD_DOCKER_GROUP_ID $BUILD_DOCKER_GROUP
@@ -57,7 +58,7 @@ ENV MAVEN_HOME /usr/share/maven
 ENV FINDBUGS_VERSION 2.0.3
 RUN curl -fsSL http://downloads.sourceforge.net/project/findbugs/findbugs/$FINDBUGS_VERSION/findbugs-$FINDBUGS_VERSION.tar.gz | tar xzf - -C /home/$BUILD_USER
 
-ENV ANT_VERSION 1.9.5
+ENV ANT_VERSION 1.9.7
 RUN cd && \
     wget -q http://www.us.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz && \
     tar -xzf apache-ant-${ANT_VERSION}-bin.tar.gz && \
@@ -76,7 +77,7 @@ RUN cd /tmp && \
     python2.7 ./get-pip.py
 
 # Install umpire
-RUN pip2.7 install umpire
+RUN pip2.7 install umpire==${UMPIRE_VERSION}
 
 # Create the folder we use for Jenkins workspaces across all nodes
 RUN mkdir -p /var/lib/jenkins
