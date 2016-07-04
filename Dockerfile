@@ -8,7 +8,6 @@ ENV BUILD_USER_ID 10012
 ENV BUILD_USER_GROUP users
 ENV BUILD_DOCKER_GROUP docker
 ENV BUILD_DOCKER_GROUP_ID 1001
-ENV UMPIRE_VERSION 0.4.4
 
 # Create the docker group
 RUN groupadd -g $BUILD_DOCKER_GROUP_ID $BUILD_DOCKER_GROUP
@@ -24,7 +23,7 @@ RUN usermod -a -G $BUILD_DOCKER_GROUP $BUILD_USER
 # Install a base set of packages from the default repo
 COPY yum-packages.list /tmp/yum.packages.list
 RUN chmod +r /tmp/yum.packages.list
-RUN yum install -y `cat /tmp/yum.packages.list`
+RUN yum install -y `cat /tmp/yum.packages.list`; exit 0
 
 # Install subversion, this needs to be done this way as it tries to install a broken package
 RUN yum install -y --nodeps subversion
@@ -77,6 +76,7 @@ RUN cd /tmp && \
     python2.7 ./get-pip.py
 
 # Install umpire
+ENV UMPIRE_VERSION 0.5.0a2
 RUN pip2.7 install umpire==${UMPIRE_VERSION}
 
 # Create the folder we use for Jenkins workspaces across all nodes
