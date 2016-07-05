@@ -76,7 +76,7 @@ RUN cd /tmp && \
     python2.7 ./get-pip.py
 
 # Install umpire
-ENV UMPIRE_VERSION 0.5.0a2
+ENV UMPIRE_VERSION 0.5.0a3
 RUN pip2.7 install umpire==${UMPIRE_VERSION}
 
 # Create the folder we use for Jenkins workspaces across all nodes
